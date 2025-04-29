@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Snake Game</title>
+    <style>
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #fe11c5, #c70099);
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
+            text-align: center;
+        }
+
+        canvas {
+            display: block;
+            margin: 30px auto;
+            border: 4px solid #fe11c5;
+            background-color: #2a0025;
+        }
+
+        #gameOverModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        #gameOverContent {
+            background: #fe11c5;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px #fe11c5;
+        }
+
+        #gameOverContent h1 {
+            margin: 0;
+            font-size: 48px;
+        }
+
+        #gameOverContent p {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+
+        #restartBtn {
+            background-color: #c70099;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        @media only screen and (max-width: 768px) {
+            body::before {
+                content: "Not suitable for mobile.";
+                display: block;
+                color: white;
+                text-align: center;
+                font-size: 22px;
+                margin-top: 40px;
+            }
+
+            canvas,
+            #gameOverModal {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="snake" width="768" height="608"></canvas> <!-- 768 = 24 * 32 -->
+
+    <div id="gameOverModal">
+        <div id="gameOverContent">
+            <h1>Game Over</h1>
+            <p>Your Score: <span id="finalScore"></span></p>
+            <button id="restartBtn">Restart Game</button>
+        </div>
+    </div>
+
+    <script src="snake.js"></script>
+</body>
+
+</html>
