@@ -60,19 +60,56 @@
             font-size: 18px;
         }
 
+        #mobileControls {
+            display: none;
+            position: fixed;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        #mobileControls .row {
+            margin: 8px 0;
+        }
+
+        #mobileControls button {
+            background-color: #fe11c5;
+            border: none;
+            color: white;
+            font-size: 24px;
+            padding: 16px 24px;
+            margin: 0 10px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px #fe11c5;
+            cursor: pointer;
+            width: 60px;
+        }
+
         @media only screen and (max-width: 768px) {
-            body::before {
-                content: "Not suitable for mobile.";
+            #mobileControls {
                 display: block;
-                color: white;
-                text-align: center;
-                font-size: 22px;
-                margin-top: 40px;
             }
 
             canvas,
             #gameOverModal {
                 display: none !important;
+            }
+
+            body::before {
+                content: none;
+            }
+        }
+
+
+        @media only screen and (max-width: 768px) {
+            #mobileControls {
+                display: block;
+            }
+
+            canvas {
+                display: block;
             }
         }
     </style>
@@ -80,6 +117,18 @@
 
 <body>
     <canvas id="snake" width="768" height="608"></canvas> <!-- 768 = 24 * 32 -->
+
+    <div id="mobileControls">
+        <div class="direction-controls">
+            <button data-dir="UP">⬆️</button>
+            <div>
+                <button data-dir="LEFT">⬅️</button>
+                <button data-dir="PAUSE">⏸️</button>
+                <button data-dir="RIGHT">➡️</button>
+            </div>
+            <button data-dir="DOWN">⬇️</button>
+        </div>
+    </div>    
 
     <div id="gameOverModal">
         <div id="gameOverContent">

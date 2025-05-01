@@ -143,6 +143,27 @@ document.addEventListener("keydown", e => {
     else if (key === 32) isPaused = !isPaused; // Spacebar
 });
 
+document.querySelectorAll("#mobileControls button").forEach(button => {
+    button.addEventListener("click", () => {
+        const dir = button.getAttribute("data-dir");
+
+        if (dir === "PAUSE") {
+            isPaused = !isPaused;
+            return;
+        }
+
+        if (dir === "LEFT" && direction !== "RIGHT") {
+            direction = "LEFT"; left.play();
+        } else if (dir === "UP" && direction !== "DOWN") {
+            direction = "UP"; up.play();
+        } else if (dir === "RIGHT" && direction !== "LEFT") {
+            direction = "RIGHT"; right.play();
+        } else if (dir === "DOWN" && direction !== "UP") {
+            direction = "DOWN"; down.play();
+        }
+    });
+});
+
 document.getElementById("restartBtn").addEventListener("click", initGame);
 
 initGame();
