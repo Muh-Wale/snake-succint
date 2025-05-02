@@ -2,8 +2,8 @@ const canvas = document.getElementById("snake");
 const ctx = canvas.getContext("2d");
 
 const box = 32;
-const rows = Math.floor(canvas.height / box); // 608 / 32 = 19
-const cols = Math.floor(canvas.width / box);  // 768 / 32 = 24
+const rows = Math.floor(canvas.height / box);
+const cols = Math.floor(canvas.width / box);
 
 let snake, food, direction, score, game, isPaused = false;
 
@@ -16,19 +16,18 @@ let left = new Audio("audio/left.mp3");
 let down = new Audio("audio/down.mp3");
 
 let foodImg = new Image();
-foodImg.src = "img/food.png"; // Make sure this path is correct
+foodImg.src = "img/food.png";
 
-foodImg.onerror = function () {
+foodImg.onerror = function() {
     console.error("Could not load food image");
 };
 
 let bodyImg = new Image();
 bodyImg.src = "img/body.png";
 
-bodyImg.onerror = function () {
+bodyImg.onerror = function() {
     console.error("Could not load body image");
 };
-
 
 function initGame() {
     snake = [{ x: 9 * box, y: 10 * box }];
@@ -53,35 +52,29 @@ function draw() {
     for (let i = 0; i < snake.length; i++) {
         const s = snake[i];
         if (bodyImg.complete) {
-            // Draw head with rotation
             ctx.save();
-            ctx.translate(s.x + box / 2, s.y + box / 2); // Move origin to center of the box
-
+            ctx.translate(s.x + box/2, s.y + box/2);
+            
             let angle = 0;
             if (direction === "UP") angle = 0;
-            else if (direction === "RIGHT") angle = Math.PI / 2;
+            else if (direction === "RIGHT") angle = Math.PI/2;
             else if (direction === "DOWN") angle = Math.PI;
-            else if (direction === "LEFT") angle = -Math.PI / 2;
+            else if (direction === "LEFT") angle = -Math.PI/2;
 
             ctx.rotate(angle);
-            ctx.drawImage(bodyImg, -box / 2, -box / 2, box, box);
+            ctx.drawImage(bodyImg, -box/2, -box/2, box, box);
             ctx.restore();
         } else {
-            // fallback pink block
             ctx.fillStyle = "#d10cab";
             ctx.fillRect(s.x, s.y, box, box);
         }
     }
-    
-    
 
-    // Draw food
     if (foodImg.complete) {
         const foodSize = box * 1.5;
-        const foodOffset = (box - foodSize) / 2;
+        const foodOffset = (box - foodSize)/2;
         ctx.drawImage(foodImg, food.x + foodOffset, food.y + foodOffset, foodSize, foodSize);
     } else {
-        // Fallback if image not loaded yet
         ctx.fillStyle = "#ff5edd";
         ctx.fillRect(food.x, food.y, box, box);
     }
@@ -107,11 +100,9 @@ function draw() {
 
     let newHead = { x: headX, y: headY };
 
-    if (
-        headX < 0 || headX >= cols * box ||
+    if (headX < 0 || headX >= cols * box ||
         headY < 0 || headY >= rows * box ||
-        collision(newHead, snake)
-    ) {
+        collision(newHead, snake)) {
         dead.play();
         gameOver();
         return;
@@ -140,7 +131,7 @@ document.addEventListener("keydown", e => {
     else if (key === 38 && direction !== "DOWN") { direction = "UP"; up.play(); }
     else if (key === 39 && direction !== "LEFT") { direction = "RIGHT"; right.play(); }
     else if (key === 40 && direction !== "UP") { direction = "DOWN"; down.play(); }
-    else if (key === 32) isPaused = !isPaused; // Spacebar
+    else if (key === 32) isPaused = !isPaused;
 });
 
 document.querySelectorAll("#mobileControls button").forEach(button => {
